@@ -37,35 +37,62 @@ app.get('/', function(req, res){
 app.get('/kd', (req, res)=>{
     const newUser = user[0].kidneys;
     const numberOfKidneys = newUser.length;
-    const numberOfHelathKidneys = 0;
+    let numberOfHelathKidneys = 0;
     for(let i =0; i<newUser.length; i++){
         if(newUser[i].healthy){
             numberOfHelathKidneys = numberOfHelathKidneys + 1;
         }
     }
     const numberofUnhealthKidneys = numberOfKidneys - numberOfHelathKidneys;
+    
+    const numOfHealthKd = numberOfHelathKidneys;
     res.json({
         numberOfKidneys,
         numberOfHelathKidneys,
-        numberofUnhealthKidneys
+        numberofUnhealthKidneys,
+        numOfHealthKd
     })
-    console.log(newUser)
+    console.log({numOfHealthKd})
 
 })
 
+app.use(express.json())
+
 // 2. POST = User can check add a new kidney
 app.post("/kd", (req, res)=>{
-    
+    const isHealthy = req.body.isHealthy;
+    user[0].kidneys.push({
+        healthy: isHealthy
+    })
+    res.json({
+        msg: "Done!!"
+    })
 })
 
 // 3. PUT = User can replace a kindey, make it healthy
 app.put("/kd", (req, res)=>{
-
+    for(let i =0; i<user[0].kidneys.length; i++){
+        user[0].kidneys[i].healthy = true;
+    }
+    res.json({
+        msg: "Done!"
+    })
 })
 
-// 4. DELETE = User can remvoe a kidney
+// 4. DELETE = User can remvoe a unhealthy kidney
 app.delete("/kd", (req, res)=>{
-
+    const newKidneys= []
+    for(let i =0; i<user[0].kidneys.length; i++){
+        if(user[0].kidneys[i].healthy){
+            newKidneys.push({
+                healthy: true
+            })
+        }
+    }
+    user[0].kidneys = newKidneys;
+    res.json({
+        msg: "Done!"
+    })
 })
 
 app.listen(3000, function(){
