@@ -39,6 +39,7 @@ const app = express()
 //     })
 // })
 
+// This is use for extract body from the body which is sending by us in postman
 app.use(express.json())
 
 // app.post('/newlol', (req, res)=>{
@@ -52,6 +53,14 @@ app.post('/newlol', (req, res) => {
   const kidneyLeng = kidney.length;
   res.send("You have " + kidneyLeng + " kidneys");
 });
+
+// Global catches: to prevent some ugly exceptions
+app.use(function(err, req, res, next){
+  res.json({
+    msg: "This is not you, this is us!! :("
+  })
+})
+
 
 
 app.listen(3000, ()=>{
