@@ -26,7 +26,7 @@ const CreateTodo = () => {
                 description: description
             }),
             headers:{
-                "contentType": "application/json"
+                "Content-type": "application/json"
             }
         }).then(async function (res) {
             const json = await res.json()
