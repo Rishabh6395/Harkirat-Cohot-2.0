@@ -6,16 +6,18 @@ import './App.css'
 import Card from './Components/Card'
 import BGChanger from './Components/BGChanger'
 import TempBG from './Components/TempBG'
+import ParaGen from './Components/ParaGen'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <div className='h-screen bg-red-500'>
+      <div className=''>
         {/* <Card/> */}
         {/* <BGChanger/> */}
-        <TempBG/>
+        {/* <TempBG/> */}
+        <ParaGen/>
       </div>
     </>
   )
