@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import "./App.css";
+import Revenue from "./Components/Revenue";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -19,12 +20,17 @@ function App() {
         <div className="bg-yellow-300">Hi tailwind 3</div>
         <div className="bg-green-300">Hi tailwind 4</div>
       </div> */}
-      <div className="grid grid-cols-1 md:grid-cols-4">
+      {/* <div className="grid grid-cols-1 md:grid-cols-4">
         <div className="bg-red-500">Hi tailwind 1</div>
         <div className="bg-cyan-300">Hi tailwind 2</div>
         <div className="bg-yellow-300">Hi tailwind 3</div>
         <div className="bg-green-300">Hi tailwind 4</div>
-      </div>
+      </div> */}
+        <div className="grid grid-cols-3">
+          <Revenue title={"Amount pending"} amount={"43,642.3"} orderCount={13} count={4}/>
+        </div>
+
+
     </>
   );
 }
