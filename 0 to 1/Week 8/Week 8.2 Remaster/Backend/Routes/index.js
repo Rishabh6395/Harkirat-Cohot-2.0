@@ -6,7 +6,7 @@ const accountRouter = require('./account')
 
 const router = express.Router()
 
-router.use('/user', userRouter)
+router.use('/user', userRouter.router)
 router.use('/update', userRouter)
 router.use('/account', accountRouter)
 router.use('/balance', accountRouter)

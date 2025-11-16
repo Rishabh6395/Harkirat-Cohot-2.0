@@ -39,8 +39,8 @@ const accountSchema = mongoose.Schema({
     }
 })
 
-const Account = mongoose.model(Account, accountSchema)
-const User = mongoose.model(User, UserSchema)
+const Account = mongoose.model("Account", accountSchema)
+const User = mongoose.model("User", UserSchema)
 
 module.exports= {
     User,
