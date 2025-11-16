@@ -7,6 +7,10 @@ app.use(cors())
 app.use(express.json())
 
 app.use("/api/v1", rootRouter)
+app.use("api/v1/user", rootRouter)
+app.use("api/v1/user/bulk", rootRouter)
+app.use("api/v1/account", rootRouter)
+app.use("/api/v1/account/balance", rootRouter)
 
 app.get("/", (req, res) => {
     res.send('Hello home route')

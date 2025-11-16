@@ -4,6 +4,8 @@ const {User} = require('../DB/db.js')
 const zod = require('zod')
 const {JWT_SCRETE} = require('../config.js')
 const jwt = require('jsonwebtoken')
+const {authMiddlware} = require('../Middlewares/auth.middleware.js')
+
 
 const signupBody = zod.object({
     firstname: zod.string(),
@@ -34,10 +36,15 @@ router.post('/signup', async (req, res) => {
         email: req.body.email,
         password: req.body.password
     })
-    const userid = user._id;
+    const userId = user._id;
+
+    await Account.create({
+        userId,
+        balance: 1 + Math.random() * 10000
+    })
 
     const token = jwt.sign({
-        userid
+        userId
     }, JWT_SCRETE)
 
     res.json({
@@ -69,7 +76,7 @@ router.post("/signin", async(req, res) => {
 
     if(user){
         const token = jwt.sign({
-            userid: user._id
+            userId: user._id
         }, JWT_SCRETE)
 
         res.json({
@@ -80,6 +87,51 @@ router.post("/signin", async(req, res) => {
 
     res.status(411).json({
         msg: "Error while logging in"
+    })
+})
+
+const updatedBody = zod.object({
+    password: zod.string().optional(),
+    firstname: zod.string().optional,
+    lastname: zod.string().optional()
+})
+
+router.put("/", authMiddlware, async(req, res) => {
+    const {success} = updatedBody.safeParse(req.body)
+    if(!success){
+        return res.status(411).json({
+            msg: "Error while updating the information"
+        })
+    }
+    await User.updateOne({_id: req.userId}, req.body)
+    res.json({
+        msg: "Updated successfully"
+    })
+})
+
+
+router.get('/bulk', async (req, res) => {
+    const filter = req.query.filter || ""
+
+    const users = await User.find({
+        $or: [{
+            firstname: {
+                "$regex": filter
+            }
+        },{
+            lastname: {
+                "$regex": filter
+            }
+        }]
+    })
+
+    res.json({
+        user: users.map(user => ({
+            email: user.email,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            _id: user._id
+        }))
     })
 })
 
