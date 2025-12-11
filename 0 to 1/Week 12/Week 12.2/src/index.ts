@@ -40,3 +40,24 @@ const user: User ={
 }
 
 // user.age = 12 // typescript complains bcz it's readonly
+
+
+
+// RECORD and MAPS
+
+type User1 = Record<string, {age: number; name: string}>
+
+const users: User1 = {
+     "user@1": {name: "rishabh", age: 21},
+     "user@2": {name: "rishabh", age: 21}
+}
+// Record is a cleaner way to create object
+
+// Maps:
+
+const users1 = new Map()
+users1.set("user@12", { name: "rishbah", age: "30", email: "risahbh@12"})
+users1.set("user@123", { name: "rishbah3", age: "3", email: "risahbh@123"})
+
+const user12 = users1.get("user@123")
+console.log(user12)
