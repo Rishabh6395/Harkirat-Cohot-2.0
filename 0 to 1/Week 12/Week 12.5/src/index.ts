@@ -1,10 +1,20 @@
-import { PrismaClient }from "./generated/prisma/client.js"
+import { PrismaClient } from "@prisma/client"
+import { PrismaPg } from '@prisma/adapter-pg'
+import pg from 'pg'
 
-const prisma = new PrismaClient({} as any);
+const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL })
+const adapter = new PrismaPg(pool)
+const prisma = new PrismaClient({ adapter });
 
 // const users = await prisma.user.findMany()
 
-async function insertUser(username:string, password: string, firstName: string, lastName: string) {
+const users = await prisma.user.findMany({
+    where: {},
+});
+
+console.log("hey: ", users)
+
+async function insertUser(username: string, password: string, firstName: string, lastName: string) {
     const response = await prisma.user.create({
         data: {
             username,
@@ -15,4 +25,4 @@ async function insertUser(username:string, password: string, firstName: string, 
     })
     console.log("Response: ", response)
 }
-insertUser('rishabh@1212', 'lol@1212', 'Rishabh', 'Bhatt')
+insertUser('rishabh@12123', 'lol@1212', 'Rishabh', 'Bhatt')
