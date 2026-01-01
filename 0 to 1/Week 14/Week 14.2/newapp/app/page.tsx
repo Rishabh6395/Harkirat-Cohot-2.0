@@ -1,15 +1,24 @@
-import axios from "axios";
-import Image from "next/image";
+import { PrismaClient } from "@/app/generated/prisma/client"
+import { PrismaPg } from "@prisma/adapter-pg"
+
+const adapter = new PrismaPg({
+    connectionString: process.env.DATABASE_URL
+})
+
+const client = new PrismaClient({
+    adapter
+})
 
 import { Button } from "./components/Button"
-import { responseCookiesToRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
 
 async function getUserDetails()  {
-  // await new Promise ((r) => setTimeout(r,5000))
-  const reponse = await axios.get("http://localhost:3000/api/user")
-  console.log(reponse)
-  return reponse.data;
+    const user = await client.user.findFirst()
+     // db logic
+     return {
+         username: user?.username,
+         password: user?.password
+     }
 }
 
 export default async function Home() {
