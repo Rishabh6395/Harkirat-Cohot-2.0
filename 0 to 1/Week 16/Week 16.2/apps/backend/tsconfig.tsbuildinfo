@@ -1,1 +1,1 @@
-{"root":["./src/app.ts"],"version":"5.9.2"}
+{"root":["./dist/app.d.ts","./src/app.ts"],"errors":true,"version":"5.9.3"}
