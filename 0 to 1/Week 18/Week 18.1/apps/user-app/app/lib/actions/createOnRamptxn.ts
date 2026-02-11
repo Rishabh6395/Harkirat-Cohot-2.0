@@ -12,7 +12,7 @@ export async function createOnRampTransaction(amount: number, provider: string){
             message: "User is logged in"
         }
     }
-    prisma.onRampTransaction.create({
+    await prisma.onRampTransaction.create({
         data: {
             userId: Number(userId),
             amount: amount,
