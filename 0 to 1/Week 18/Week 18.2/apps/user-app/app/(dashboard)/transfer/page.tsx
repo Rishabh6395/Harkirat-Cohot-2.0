@@ -33,6 +33,8 @@ async function getOnRampTransactions() {
     }))
 }
 
+// checking my CI by github actions
+
 export default async function() {
     const balance = await getBalance();
     const transactions = await getOnRampTransactions();
