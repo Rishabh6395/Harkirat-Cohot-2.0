@@ -29,3 +29,4 @@ export class GameManager {
         console.log(this.games);
     }
 }
+export const gamemanager = new GameManager()

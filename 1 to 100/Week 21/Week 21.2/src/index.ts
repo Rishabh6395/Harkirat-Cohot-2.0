@@ -1,4 +1,4 @@
-import { GameManager } from "./store.js";
+import { gamemanager } from "./store.js";
 import { startLogger } from "./logger.js";
 
 startLogger();
@@ -11,11 +11,10 @@ startLogger();
 //     })
 // }, 5000)
 
-const gameManager = new GameManager()
 
 
 setInterval(() => {
-    gameManager.addGame({
+    gamemanager.addGame({
         id: Math.random().toString(),
         whitePlayer: "harkirat",
         blackPlayer: "jaskirat",

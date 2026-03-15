@@ -1,8 +1,8 @@
-import { GameManager } from "./store.js";
-const gameManager = new GameManager()
+import { gamemanager } from "./store.js";
+
 
 export function startLogger() {
     setInterval(() => {
-        console.log(gameManager.logState());
+        console.log(gamemanager.logState());
     }, 4000)
 }
